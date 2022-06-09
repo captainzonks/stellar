@@ -25,5 +25,8 @@ impl Engine {
             self.fuel -= 1.0;
             println!("fuel remaining: {}", self.fuel);
         }
+        if self.fuel <= 0.0 {
+            self.disengage();
+        }
     }
 }

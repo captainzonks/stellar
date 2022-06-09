@@ -72,7 +72,8 @@ impl State {
 
             if self.player.engine.engaged {
                 self.player.engine.burn();
-                self.player.position.move_position(&self.player.direction);
+                let direction = self.player.direction;
+                self.player.position.move_position(&direction);
             }
         }
         self.player.render(ctx);
@@ -81,12 +82,27 @@ impl State {
         if let Some(E) = ctx.key {
             match self.player.engine.engaged {
                 false => {
-                    self.player.engage_engines(Direction::new());
+                    let direction = self.player.direction;
+                    self.player.engage_engines(&direction);
                 }
                 true => {
                     self.player.disengage_engines();
                 }
             }
+        }
+
+        // Change ship direction
+        if let Some(D) = ctx.key {
+            self.player.direction.change_x(0.1);
+        }
+        if let Some(A) = ctx.key {
+            self.player.direction.change_x(-0.1);
+        }
+        if let Some(W) = ctx.key {
+            self.player.direction.change_y(-0.1);
+        }
+        if let Some(S) = ctx.key {
+            self.player.direction.change_y(0.1);
         }
     }
 }

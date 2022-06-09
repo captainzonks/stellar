@@ -23,7 +23,7 @@ impl Starship {
         }
     }
 
-    pub fn engage_engines(&mut self, direction: Direction) {
+    pub fn engage_engines(&mut self, direction: &Direction) {
         self.engine.engage();
     }
 
@@ -37,13 +37,20 @@ impl Starship {
             "Fuel Remaining: ".to_string() + self.engine.fuel.to_string().as_str(),
         );
         ctx.print_centered(
-            8,
+            4,
+            "Direction: ".to_string()
+                + self.direction.x.to_string().as_str()
+                + ", ".to_string().as_str()
+                + self.direction.y.to_string().as_str(),
+        );
+        ctx.print_centered(
+            7,
             "Position: ".to_string()
                 + self.position.x.to_string().as_str()
                 + ", ".to_string().as_str()
                 + self.position.y.to_string().as_str()
                 + ", ".to_string().as_str()
                 + self.position.z.to_string().as_str(),
-        )
+        );
     }
 }
